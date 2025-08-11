@@ -47,7 +47,7 @@ export default function NewUserPage() {
   return (
     <div className="p-6">
       <BackButton href="/users" label="Volver a Usuarios" />
-      <h1 className="text-3xl font-bold mb-6">Nuevo Usuario</h1>
+      <h1 className="text-3xl font-bold mb-6 text-gray-900">Nuevo Usuario</h1>
 
       <div className="max-w-2xl bg-white p-6 rounded-lg shadow">
         <form onSubmit={handleSubmit} className="space-y-6">

@@ -10,7 +10,17 @@ export default function SalesPage() {
   useEffect(() => {
     // Cargar ventas del localStorage
     const savedSales = JSON.parse(localStorage.getItem('sales') || '[]')
-    setSales(savedSales)
+    const userRole = localStorage.getItem('userRole')
+    const userEmail = localStorage.getItem('userEmail')
+    
+    // Si es admin, mostrar todas las ventas
+    // Si es vendedor, mostrar solo sus ventas
+    if (userRole === 'seller') {
+      const filteredSales = savedSales.filter((sale: any) => sale.sellerEmail === userEmail)
+      setSales(filteredSales)
+    } else {
+      setSales(savedSales)
+    }
   }, [])
 
   return (

@@ -10,13 +10,24 @@ export default function LoginPage() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    // Por ahora, solo verificamos las credenciales del administrador
-    if (email === 'admin@salefactory.com' && password === '123456') {
+    
+    // Obtener usuarios del localStorage
+    const users = JSON.parse(localStorage.getItem('users') || '[]')
+    
+    // Buscar el usuario por email
+    const user = users.find((u: any) => u.email === email)
+    
+    // Verificar si existe el usuario y la contraseña coincide
+    if (user && user.password === password) {
       // Crear cookie de autenticación
       document.cookie = 'auth=true; path=/'
+      // Guardamos el rol y email del usuario
+      localStorage.setItem('userRole', user.role)
+      localStorage.setItem('userEmail', user.email)
       router.push('/dashboard')
     } else {
-      alert('Credenciales inválidas')
+      // Si el usuario no existe o la contraseña no coincide
+      alert('Email o contraseña incorrectos')
     }
   }
 

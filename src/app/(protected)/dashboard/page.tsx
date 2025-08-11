@@ -24,10 +24,18 @@ export default function DashboardPage() {
   const LOW_STOCK_THRESHOLD = 10 // Definimos que bajo stock es menos de 10 unidades
 
   useEffect(() => {
+    const userRole = localStorage.getItem('userRole')
+    const userEmail = localStorage.getItem('userEmail')
+    
     // Cargar ventas
     const savedSales = JSON.parse(localStorage.getItem('sales') || '[]')
+    // Filtrar ventas según el rol
+    const filteredSales = userRole === 'seller' 
+      ? savedSales.filter((sale: any) => sale.sellerEmail === userEmail)
+      : savedSales
+    
     // Ordenar por fecha descendente y tomar las últimas 5
-    const recentSales = [...savedSales]
+    const recentSales = [...filteredSales]
       .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
       .slice(0, 5)
     setSales(recentSales)

@@ -2,6 +2,7 @@
 
 import { FormEvent, useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import BackButton from '@/components/BackButton'
 
 export default function NewSalePage() {
   const [formData, setFormData] = useState({
@@ -53,6 +54,7 @@ export default function NewSalePage() {
         productName: product.name,
         quantity: parseInt(formData.quantity),
         price: product.price,
+        sellerEmail: localStorage.getItem('userEmail'),
         createdAt: new Date().toISOString()
       }
       sales.push(newSale)
@@ -67,7 +69,8 @@ export default function NewSalePage() {
 
   return (
     <div className="p-6">
-      <h1 className="text-3xl font-bold mb-6">Nueva Venta</h1>
+      <BackButton href="/sales" label="Volver a Ventas" />
+      <h1 className="text-3xl font-bold mb-6 text-gray-900">Nueva Venta</h1>
 
       <div className="max-w-2xl bg-white p-6 rounded-lg shadow">
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -78,7 +81,7 @@ export default function NewSalePage() {
             <select
               id="productId"
               required
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-gray-900"
               value={formData.productId}
               onChange={(e) => setFormData({ ...formData, productId: e.target.value })}
             >
@@ -100,7 +103,7 @@ export default function NewSalePage() {
               id="quantity"
               required
               min="1"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-gray-900"
               value={formData.quantity}
               onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
             />
