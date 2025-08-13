@@ -18,7 +18,7 @@ export default function ProtectedLayout({
   const pathname = usePathname()
   const router = useRouter()
 
-  // Si estamos en la página de login, no mostramos el layout
+  // Si estamos en la página de login, no mostramos el layout test
   if (pathname === '/login') {
     return <>{children}</>
   }
